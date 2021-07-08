@@ -1,7 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.3
-import Elevator 1.0
+import io.dev.qt 1.0
 
 ApplicationWindow{
     width: 800
@@ -35,16 +35,16 @@ ApplicationWindow{
         id: leftDoor
         x: 50
         y: 40
-        width: 101
+        width: 101 - elevator.width
         height: 201
         text: qsTr("leftDoor")
     }
 
     Button {
         id: rightDoor
-        x: 150
+        x: 150 + elevator.width
         y: 40
-        width: 100
+        width: 101 - elevator.width
         height: 201
         text: qsTr("rightDoor")
     }
@@ -92,9 +92,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -108,9 +105,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -124,9 +118,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -140,9 +131,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -156,9 +144,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -172,9 +157,7 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
+            console.log("===> X =" + elevatorBtn.x + " | Y = " + elevatorBtn.y)
         }
     }
 
@@ -186,6 +169,7 @@ ApplicationWindow{
         height: 40
         text: qsTr("Open")
         enabled: elevator.validUse
+        onClicked: elevator.openBtn()
     }
 
     Button {
@@ -196,6 +180,7 @@ ApplicationWindow{
         height: 40
         text: qsTr("Close")
         enabled: elevator.validUse
+        onClicked: elevator.closeBtn()
     }
 
     Button {
@@ -208,9 +193,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelUpList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -224,9 +206,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelDownList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -240,9 +219,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelUpList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -256,9 +232,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelDownList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -272,9 +245,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelUpList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -288,9 +258,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelDownList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -304,9 +271,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelUpList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -320,9 +284,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelDownList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -336,9 +297,6 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelUpList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
@@ -352,16 +310,13 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelDownList(parseInt(text))
-
-            elevatorBtn.x = elevator.elevatorX
-            elevatorBtn.y = elevator.elevatorY
         }
     }
 
     Button {
         id: elevatorBtn
-        x: 300
-        y: 550
+        x: elevator.elevatorX
+        y: elevator.elevatorY
         width: 101
         height: 101
         text: qsTr("Elevator")
@@ -369,7 +324,7 @@ ApplicationWindow{
         Behavior on y {
             SmoothedAnimation {
                 id : elevatorAnimation
-                velocity: 100
+                velocity: 300
             }
         }
     }

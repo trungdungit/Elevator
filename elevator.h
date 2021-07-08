@@ -16,13 +16,15 @@ enum eDoorState
     CLOSING,
 };
 
-enum eElevatorState{
+enum eElevatorState
+{
     STOP,
     UP,
     DOWN
 };
 
-enum eElevatorDirection{
+enum eElevatorDirection
+{
     LIFT,
     DROP,
     SUSPEND
@@ -37,7 +39,7 @@ enum eDoorButton
 
 struct ElevatorHeight
 {
-    ElevatorHeight():nowHeight(0), levelHigh(1000)	,fullLevel(LEVEL)	, moveSpeed(5){}
+    ElevatorHeight():nowHeight(0), levelHigh(1000), fullLevel(LEVEL), moveSpeed(5){}
     int nowHeight;
     const int levelHigh;
     const int fullLevel;
@@ -46,7 +48,7 @@ struct ElevatorHeight
 
 struct DoorWidth
 {
-    DoorWidth() :nowWidth(0), fullWidth(1000),openSpeed(5),waitTime(100){}
+    DoorWidth():nowWidth(0), fullWidth(1000), openSpeed(5), waitTime(100){}
     int nowWidth;
     const int fullWidth ;
     const int openSpeed ;
@@ -102,6 +104,9 @@ public:
 
     Q_INVOKABLE void on_startBtn_clicked();
     Q_INVOKABLE void on_closeBtn_clicked();
+
+    Q_INVOKABLE void openBtn();
+    Q_INVOKABLE void closeBtn();
 
     void on_elevatorBtn_clicked();
     void on_leftDoor_clicked();

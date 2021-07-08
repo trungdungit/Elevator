@@ -42,6 +42,9 @@ Elevator::Elevator(QObject* parent)
 
     thread1 = std::thread(&Elevator::elevatorThread, this);
     thread3 = std::thread(&Elevator::doorThread, this);
+    m_eleX = 300;
+    m_eleY = 550;
+    m_width = 0;
 }
 
 Elevator::~Elevator()
@@ -243,7 +246,7 @@ void Elevator::liftDown()
                 elevatorState = STOP;
                 return;
             }
-            if (i == elevatorHeight.fullLevel)
+            if (i == 0)
             {
                 if (floorUpList[level] == 1)
                 {
@@ -428,6 +431,28 @@ void Elevator::on_closeBtn_clicked()
     this->setValidUse(false);
 }
 
+void Elevator::openBtn()
+{
+    if(elevatorState != STOP){
+        return ;
+    }
+
+    if(doorState == OPEN){
+        return;
+    }
+
+    doorButton = OPENDOOR;
+}
+
+void Elevator::closeBtn()
+{
+    if (elevatorState != STOP)
+        return;
+
+    doorButton = CLOSEDOOR;
+}
+
+
 void Elevator::addPanelDownList(int floor)
 {
     floorDownList[floor - 1] = 1;
@@ -452,7 +477,7 @@ void Elevator::on_elevatorBtn_clicked()
     std::cout<<"state : "<<elevatorState<<std::endl;
     m_eleX = 300;
     m_eleY = 550 - height;
-    std::cout << "height in execute function = ["<< m_eleX << " , " << m_eleY << "]" << std::endl;
+    std::cout << "m_eleY = " << m_eleY << std::endl;
     this->setElevatorX(m_eleX);
     this->setElevatorY(m_eleY);
 }

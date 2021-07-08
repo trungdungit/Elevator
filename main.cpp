@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-    qmlRegisterType<Elevator>("Elevator", 1, 0, "Elevator");
+    qmlRegisterType<Elevator>("io.dev.qt", 1, 0, "Elevator");
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
