@@ -78,10 +78,10 @@ ApplicationWindow{
         x: 170
         y: 473
         text: qsTr("Shut down")
-        enabled: elevator.validUse
+        enabled: !elevatorAnimation.running
         onClicked: {
             elevator.on_closeBtn_clicked()
-            elevatorAnimation.stopped()
+            textField.text = qsTr("G")
         }
     }
 
@@ -327,10 +327,10 @@ ApplicationWindow{
         Behavior on y {
             SmoothedAnimation {
                 id : elevatorAnimation
-
                 velocity: 300
             }
         }
+
     }
 
     Button {
