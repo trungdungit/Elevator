@@ -25,6 +25,12 @@ void Elevator::setWidth(int _width)
     Q_EMIT widthChanged();
 }
 
+void Elevator::setLevel(int _level)
+{
+    m_level = _level;
+    Q_EMIT levelChanged();
+}
+
 Elevator::Elevator(QObject* parent)
     :QObject(parent)
 {
@@ -41,19 +47,19 @@ Elevator::Elevator(QObject* parent)
     memset(panelButtonList, 0, sizeof(panelButtonList));
 
     thread1 = std::thread(&Elevator::elevatorThread, this);
+    thread1.detach();
     thread3 = std::thread(&Elevator::doorThread, this);
+    thread3.detach();
 
     m_eleX = 300;
     m_eleY = 550;
     m_width = 0;
+    m_level = 1;
 }
 
 Elevator::~Elevator()
 {
-    thread1.join();
-    thread3.join();
-    thread2.join();
-    thread4.join();
+
 }
 
 void Elevator::elevatorThread()
@@ -316,7 +322,6 @@ void Elevator::liftStop()
         }
         if (liftDirection == LIFT)
         {
-            std::cout<<"check lift direction   "<<level<<std::endl;
             for (int i = level + 1; i < elevatorHeight.fullLevel; i++)
             {
                 if (floorUpList[i] || panelButtonList[i])
@@ -421,7 +426,9 @@ void Elevator::syncDoorWidth()
 void Elevator::on_startBtn_clicked()
 {
     thread2 = std::thread(&Elevator::startElevator, this);
+    thread2.detach();
     thread4 = std::thread(&Elevator::syncDoorWidth, this);
+    thread4.detach();
     this->setValidUse(true);
 }
 
@@ -470,14 +477,16 @@ void Elevator::addPanelUpList(int floor)
 void Elevator::on_elevatorBtn_clicked()
 {
     height = elevatorHeight.nowHeight/10;
-    level = elevatorHeight.nowHeight/elevatorHeight.levelHigh + 1;
+    level1 = elevatorHeight.nowHeight/elevatorHeight.levelHigh + 1;
     //std::cout<<"height = "<<height<< " and level = "<<level<<std::endl;
     //std::cout<<"state : "<<elevatorState<<std::endl;
     //std::cout<<"lift direction :"<<liftDirection<<std::endl;
     m_eleX = 300;
     m_eleY = 550 - height;
+
     this->setElevatorX(m_eleX);
     this->setElevatorY(m_eleY);
+    this->setLevel(level1);
 }
 
 void Elevator::on_leftDoor_clicked()

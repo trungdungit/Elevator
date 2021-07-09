@@ -36,7 +36,7 @@ ApplicationWindow{
         y: 40
         width: 101 - elevator.width
         height: 201
-        text: qsTr("leftDoor")
+        text: qsTr("Left Door")
     }
 
     Button {
@@ -45,7 +45,7 @@ ApplicationWindow{
         y: 40
         width: 101 - elevator.width
         height: 201
-        text: qsTr("rightDoor")
+        text: qsTr("Right Door")
     }
 
     Button {
@@ -78,7 +78,11 @@ ApplicationWindow{
         x: 170
         y: 473
         text: qsTr("Shut down")
-        onClicked: elevator.on_closeBtn_clicked()
+        enabled: elevator.validUse
+        onClicked: {
+            elevator.on_closeBtn_clicked()
+            elevatorAnimation.stopped()
+        }
     }
 
     Button {
@@ -323,6 +327,7 @@ ApplicationWindow{
         Behavior on y {
             SmoothedAnimation {
                 id : elevatorAnimation
+
                 velocity: 300
             }
         }
@@ -342,7 +347,7 @@ ApplicationWindow{
         y: 319
         width: 29
         height: 40
-        text: parseInt(7 - elevatorBtn.y/100)
+        text: parseInt(elevator.level)
         placeholderText: qsTr("Text Field")
         enabled: elevator.validUse
     }

@@ -63,6 +63,7 @@ public:
     Q_PROPERTY(int elevatorX READ elevatorX WRITE setElevatorX NOTIFY elevatorXChanged)
     Q_PROPERTY(int elevatorY READ elevatorY WRITE setElevatorY NOTIFY elevatorYChanged)
     Q_PROPERTY(int width READ width WRITE setWidth NOTIFY widthChanged)
+    Q_PROPERTY(int level READ level WRITE setLevel NOTIFY levelChanged)
 
     bool validUse() {return m_validUse;}
     void setValidUse(bool _valid);
@@ -76,7 +77,10 @@ public:
     int width() {return m_width;}
     void setWidth(int _width);
 
-    int height, level, width1;
+    int level() {return m_level;}
+    void setLevel(int _level);
+
+    int height, level1, width1;
 
     Elevator(QObject* parent = nullptr);
     ~Elevator();
@@ -117,6 +121,7 @@ Q_SIGNALS:
     void elevatorYChanged();
     void validUseChanged();
     void widthChanged();
+    void levelChanged();
 
 private:
     void doorClose();
@@ -130,7 +135,7 @@ private:
     void liftDown();
 
     bool m_validUse = false;
-    int m_eleX, m_eleY, m_width;
+    int m_eleX, m_eleY, m_width, m_level;
     std::thread thread1, thread2, thread3, thread4;
 };
 
