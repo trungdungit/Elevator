@@ -5,7 +5,7 @@ import io.dev.qt 1.0
 
 ApplicationWindow{
     width: 800
-    height: 752
+    height: 800
     visible: true
     title: qsTr("Elevator")
 
@@ -27,7 +27,6 @@ ApplicationWindow{
         y: 20
         width: 201
         height: 21
-        text: qsTr("Name")
         autoRepeat: true
     }
 
@@ -157,7 +156,7 @@ ApplicationWindow{
         enabled: elevator.validUse
         onClicked: {
             elevator.addPanelList(parseInt(text))
-            console.log("===> X =" + elevatorBtn.x + " | Y = " + elevatorBtn.y)
+            //console.log("===> X =" + elevatorBtn.x + " | Y = " + elevatorBtn.y)
         }
     }
 
@@ -192,7 +191,7 @@ ApplicationWindow{
         text: qsTr("↑")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelUpList(parseInt(text))
+            elevator.addPanelUpList(1)
         }
     }
 
@@ -205,7 +204,7 @@ ApplicationWindow{
         text: qsTr("↓")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelDownList(parseInt(text))
+            elevator.addPanelDownList(6)
         }
     }
 
@@ -218,7 +217,7 @@ ApplicationWindow{
         text: qsTr("↑")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelUpList(parseInt(text))
+            elevator.addPanelUpList(5)
         }
     }
 
@@ -231,7 +230,7 @@ ApplicationWindow{
         text: qsTr("↓")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelDownList(parseInt(text))
+            elevator.addPanelDownList(5)
         }
     }
 
@@ -244,7 +243,7 @@ ApplicationWindow{
         text: qsTr("↑")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelUpList(parseInt(text))
+            elevator.addPanelUpList(4)
         }
     }
 
@@ -257,7 +256,7 @@ ApplicationWindow{
         text: qsTr("↓")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelDownList(parseInt(text))
+            elevator.addPanelDownList(4)
         }
     }
 
@@ -270,7 +269,7 @@ ApplicationWindow{
         text: qsTr("↑")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelUpList(parseInt(text))
+            elevator.addPanelUpList(3)
         }
     }
 
@@ -283,7 +282,7 @@ ApplicationWindow{
         text: qsTr("↓")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelDownList(parseInt(text))
+            elevator.addPanelDownList(3)
         }
     }
 
@@ -296,7 +295,7 @@ ApplicationWindow{
         text: qsTr("↑")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelUpList(parseInt(text))
+            elevator.addPanelUpList(2)
         }
     }
 
@@ -309,7 +308,7 @@ ApplicationWindow{
         text: qsTr("↓")
         enabled: elevator.validUse
         onClicked: {
-            elevator.addPanelDownList(parseInt(text))
+            elevator.addPanelDownList(2)
         }
     }
 

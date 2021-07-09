@@ -9,7 +9,7 @@
 
 enum eDoorState
 {
-    OPEN,
+    OPEN = 1,
     CLOSE,
     LOCK,
     OPENING,
@@ -18,14 +18,14 @@ enum eDoorState
 
 enum eElevatorState
 {
-    STOP,
+    STOP = 1,
     UP,
     DOWN
 };
 
 enum eElevatorDirection
 {
-    LIFT,
+    LIFT = 1,
     DROP,
     SUSPEND
 };

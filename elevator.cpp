@@ -42,6 +42,7 @@ Elevator::Elevator(QObject* parent)
 
     thread1 = std::thread(&Elevator::elevatorThread, this);
     thread3 = std::thread(&Elevator::doorThread, this);
+
     m_eleX = 300;
     m_eleY = 550;
     m_width = 0;
@@ -57,7 +58,6 @@ Elevator::~Elevator()
 
 void Elevator::elevatorThread()
 {
-    std::cout<<"this is elevator thread"<<std::endl;
     while (true)
     {
         switch (elevatorState)
@@ -72,8 +72,8 @@ void Elevator::elevatorThread()
             liftStop();
             break;
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     return;
 }
 
@@ -197,7 +197,7 @@ void Elevator::doorClosing()
 
 void Elevator::doorOpen()
 {
-    int	 delay = doorWidth.waitTime;
+    int	delay = doorWidth.waitTime;
     while (delay > 0)
     {
         if (doorButton == CLOSEDOOR)
@@ -246,7 +246,7 @@ void Elevator::liftDown()
                 elevatorState = STOP;
                 return;
             }
-            if (i == 0)
+            if (i == elevatorHeight.fullLevel)
             {
                 if (floorUpList[level] == 1)
                 {
@@ -267,8 +267,6 @@ void Elevator::liftUp()
     int level;
     do {
         elevatorHeight.nowHeight += elevatorHeight.moveSpeed;
-        if (elevatorHeight.nowHeight >= 5500)
-            elevatorHeight.nowHeight = 5500;
         level = elevatorHeight.nowHeight / elevatorHeight.levelHigh;
 
         int i;
@@ -318,6 +316,7 @@ void Elevator::liftStop()
         }
         if (liftDirection == LIFT)
         {
+            std::cout<<"check lift direction   "<<level<<std::endl;
             for (int i = level + 1; i < elevatorHeight.fullLevel; i++)
             {
                 if (floorUpList[i] || panelButtonList[i])
@@ -331,8 +330,8 @@ void Elevator::liftStop()
             {
                 if (floorDownList[i])
                 {
-                    liftDirection = LIFT;
-                    elevatorState = UP;
+                    liftDirection = DROP;
+                    elevatorState = DOWN;
                     return;
                 }
             }
@@ -354,8 +353,8 @@ void Elevator::liftStop()
             {
                 if (floorUpList[i])
                 {
-                    liftDirection = DROP;
-                    elevatorState = DOWN;
+                    liftDirection = LIFT;
+                    elevatorState = UP;
                     return;
                 }
             }
@@ -365,6 +364,7 @@ void Elevator::liftStop()
         {
             if (floorDownList[level] || floorUpList[level] || panelButtonList[level])
             {
+                doorState = OPENING;
                 floorDownList[level] = 0;
                 floorUpList[level] = 0;
                 panelButtonList[level] = 0;
@@ -385,7 +385,7 @@ void Elevator::liftStop()
                 }
             }
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }
 
@@ -420,7 +420,6 @@ void Elevator::syncDoorWidth()
 
 void Elevator::on_startBtn_clicked()
 {
-    std::cout<<"start elevator here"<<std::endl;
     thread2 = std::thread(&Elevator::startElevator, this);
     thread4 = std::thread(&Elevator::syncDoorWidth, this);
     this->setValidUse(true);
@@ -470,14 +469,13 @@ void Elevator::addPanelUpList(int floor)
 
 void Elevator::on_elevatorBtn_clicked()
 {
-    std::cout<<"count height"<<std::endl;
     height = elevatorHeight.nowHeight/10;
     level = elevatorHeight.nowHeight/elevatorHeight.levelHigh + 1;
-    std::cout<<"height = "<<height<< " and level = "<<level<<std::endl;
-    std::cout<<"state : "<<elevatorState<<std::endl;
+    //std::cout<<"height = "<<height<< " and level = "<<level<<std::endl;
+    //std::cout<<"state : "<<elevatorState<<std::endl;
+    //std::cout<<"lift direction :"<<liftDirection<<std::endl;
     m_eleX = 300;
     m_eleY = 550 - height;
-    std::cout << "m_eleY = " << m_eleY << std::endl;
     this->setElevatorX(m_eleX);
     this->setElevatorY(m_eleY);
 }
