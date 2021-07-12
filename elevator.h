@@ -39,7 +39,7 @@ enum eDoorButton
 
 struct ElevatorHeight
 {
-    ElevatorHeight():nowHeight(0), levelHigh(1000), fullLevel(LEVEL), moveSpeed(5){}
+    ElevatorHeight(): nowHeight(0), levelHigh(1000), fullLevel(LEVEL), moveSpeed(20){}
     int nowHeight;
     const int levelHigh;
     const int fullLevel;
@@ -48,7 +48,7 @@ struct ElevatorHeight
 
 struct DoorWidth
 {
-    DoorWidth():nowWidth(0), fullWidth(1000), openSpeed(5), waitTime(100){}
+    DoorWidth(): nowWidth(0), fullWidth(1000), openSpeed(10), waitTime(100){}
     int nowWidth;
     const int fullWidth ;
     const int openSpeed ;
@@ -57,8 +57,10 @@ struct DoorWidth
 
 class Elevator : public QObject
 {
+    //required macro
     Q_OBJECT
 public:
+    //q_property
     Q_PROPERTY(bool validUse READ validUse WRITE setValidUse NOTIFY validUseChanged)
     Q_PROPERTY(int elevatorX READ elevatorX WRITE setElevatorX NOTIFY elevatorXChanged)
     Q_PROPERTY(int elevatorY READ elevatorY WRITE setElevatorY NOTIFY elevatorYChanged)
@@ -80,7 +82,7 @@ public:
     int level() {return m_level;}
     void setLevel(int _level);
 
-    int height, level1, width1;
+    int height;
 
     Elevator(QObject* parent = nullptr);
     ~Elevator();
@@ -101,13 +103,13 @@ public:
     void doorThread();
     void startElevator();
     void syncDoorWidth();
-
+    //define function can be accessed in qml
     Q_INVOKABLE void addPanelList(int floor);
     Q_INVOKABLE void addPanelUpList(int floor);
     Q_INVOKABLE void addPanelDownList(int floor);
 
     Q_INVOKABLE void on_startBtn_clicked();
-    Q_INVOKABLE void on_closeBtn_clicked();
+    Q_INVOKABLE void on_shutDownBtn_clicked();
 
     Q_INVOKABLE void openBtn();
     Q_INVOKABLE void closeBtn();
@@ -115,7 +117,7 @@ public:
     void on_elevatorBtn_clicked();
     void on_leftDoor_clicked();
     void on_rightDoor_clicked();
-
+//define signal function
 Q_SIGNALS:
     void elevatorXChanged();
     void elevatorYChanged();
@@ -124,6 +126,7 @@ Q_SIGNALS:
     void levelChanged();
 
 private:
+    //backend/logic function for elevator
     void doorClose();
     void doorLock();
     void doorOpening();

@@ -1,5 +1,4 @@
 #include "elevator.h"
-#include <QDebug>
 
 void Elevator::setElevatorX(int _x)
 {
@@ -234,7 +233,7 @@ void Elevator::liftDown()
         level = elevatorHeight.nowHeight / elevatorHeight.levelHigh;
 
         int i;
-        for (i = level; i >0; i--)
+        for (i = level; i > 0; i--)
         {
             if ((floorDownList[level] == 1) || (panelButtonList[level] == 1))
             {
@@ -432,7 +431,7 @@ void Elevator::on_startBtn_clicked()
     this->setValidUse(true);
 }
 
-void Elevator::on_closeBtn_clicked()
+void Elevator::on_shutDownBtn_clicked()
 {
     this->setValidUse(false);
 }
@@ -477,27 +476,25 @@ void Elevator::addPanelUpList(int floor)
 void Elevator::on_elevatorBtn_clicked()
 {
     height = elevatorHeight.nowHeight/10;
-    level1 = elevatorHeight.nowHeight/elevatorHeight.levelHigh + 1;
-    //std::cout<<"height = "<<height<< " and level = "<<level<<std::endl;
-    //std::cout<<"state : "<<elevatorState<<std::endl;
-    //std::cout<<"lift direction :"<<liftDirection<<std::endl;
+    m_level = elevatorHeight.nowHeight/elevatorHeight.levelHigh + 1;
+
     m_eleX = 300;
     m_eleY = 550 - height;
 
     this->setElevatorX(m_eleX);
     this->setElevatorY(m_eleY);
-    this->setLevel(level1);
+    this->setLevel(m_level);
 }
 
 void Elevator::on_leftDoor_clicked()
 {
-    width1 = doorWidth.nowWidth/10;
-    this->setWidth(width1);
+    m_width = doorWidth.nowWidth/10;
+    this->setWidth(m_width);
 }
 
 void Elevator::on_rightDoor_clicked()
 {
-    width1 = doorWidth.nowWidth/10;
-    this->setWidth(width1);
+    m_width = doorWidth.nowWidth/10;
+    this->setWidth(m_width);
 }
 

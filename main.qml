@@ -80,7 +80,7 @@ ApplicationWindow{
         text: qsTr("Shut down")
         enabled: !elevatorAnimation.running
         onClicked: {
-            elevator.on_closeBtn_clicked()
+            elevator.on_shutDownBtn_clicked()
             textField.text = qsTr("G")
         }
     }
